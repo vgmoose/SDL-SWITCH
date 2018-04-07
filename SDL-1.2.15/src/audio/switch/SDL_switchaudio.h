@@ -41,7 +41,7 @@ struct SDL_PrivateAudioData {
     Uint8  bytePerSample;
 	AudioOutBuffer waveBuf[NUM_BUFFERS];
 	AudioOutBuffer *released_buffer;
-	u32 released_count;
+	u64 released_count;
 	u32 next;
 };
 

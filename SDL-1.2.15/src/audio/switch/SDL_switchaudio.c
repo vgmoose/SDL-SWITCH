@@ -93,7 +93,7 @@ static void SWITCH_WaitAudio(_THIS)
 static void SWITCH_PlayAudio(_THIS)
 {
     if(	this->hidden->next > this->hidden->released_count)
-		audoutWaitPlayFinish(&this->hidden->released_buffer, &this->hidden->released_count, U64_MAX);
+		audoutWaitPlayFinish(this->hidden->released_buffer, this->hidden->released_count);
 	audoutAppendAudioOutBuffer(&this->hidden->waveBuf[this->hidden->next%NUM_BUFFERS]);
 	this->hidden->next++;
 }
@@ -140,7 +140,7 @@ static int SWITCH_OpenAudio(_THIS, SDL_AudioSpec *spec)
 */
 			case AUDIO_S16LSB:
 				/* Signed 16-bit audio supported */
-				this->hidden->format=PcmFormat_Int16;
+				this->hidden->format=PcmFormat_INT16;
 				this->hidden->bytePerSample = (spec->channels) * 2;
 				   valid_datatype = 1;
 				break;
@@ -184,7 +184,7 @@ static int SWITCH_OpenAudio(_THIS, SDL_AudioSpec *spec)
 		audoutAppendAudioOutBuffer(&this->hidden->waveBuf[i]);
 	}
 	// lets wait for the first buffer to be released 
-	audoutWaitPlayFinish(&this->hidden->released_buffer, &this->hidden->released_count, U64_MAX);
+	audoutWaitPlayFinish(this->hidden->released_buffer, this->hidden->released_count);
 	
 	/* We're ready to rock and roll. :-) */
 	return(0);
